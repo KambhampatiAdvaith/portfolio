@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Kambhampati Advaith — Portfolio
 
 A world-class portfolio website built with Next.js 16, TypeScript, and Tailwind CSS.
@@ -80,3 +81,6 @@ app/
 4. Update `app/components/Contact.tsx` — real LinkedIn URL
 5. Add your resume PDF to `public/resume.pdf` and link the Download button
 
+=======
+# portfolio
+>>>>>>> b5f1dfe33bba8351995732b97de582480be01ccb
