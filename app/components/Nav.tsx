@@ -1,104 +1,160 @@
 "use client";
+
 import { useEffect, useState } from "react";
 
 const NAV = [
-  { label: "Work", href: "#projects" },
   { label: "About", href: "#about" },
-  { label: "Writing", href: "#research" },
-  { label: "Contact", href: "#contact" },
+  { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#experience" },
+  { label: "Technologies", href: "#skills" },
+  { label: "Research", href: "#research" },
 ];
 
-export default function Nav({ onCmd }: { onCmd: () => void }) {
+export default function Nav({
+  onContact,
+}: {
+  onContact: () => void;
+}) {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
+    const fn = () => setScrolled(window.scrollY > 30);
+
     window.addEventListener("scroll", fn);
+
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
   const go = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-    setOpen(false);
+    document.querySelector(href)?.scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   return (
-    <nav style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      padding: "1rem 2.5rem",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      background: scrolled ? "rgba(4,5,13,0.88)" : "transparent",
-      backdropFilter: scrolled ? "blur(20px)" : "none",
-      borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
-      transition: "all .35s ease",
-    }}>
-      {/* Centered nav links */}
-      <div style={{ display: "flex", alignItems: "center", gap: "2.5rem" }} className="nav-desktop">
-        {NAV.map(n => (
-          <button key={n.href} onClick={() => go(n.href)}
+    <nav
+      style={{
+        position: "fixed",
+        top: "20px",
+        left: "50%",
+        transform: "translateX(-50%)",
+
+        width: "min(1050px, 92%)",
+
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+
+        padding: ".9rem 1.5rem",
+
+        background: scrolled
+          ? "rgba(5,6,10,.95)"
+          : "rgba(5,6,10,.85)",
+
+        backdropFilter: "blur(24px)",
+
+        border: "1px solid rgba(255,255,255,.10)",
+
+        borderRadius: "999px",
+
+        zIndex: 1000,
+
+        boxShadow:
+          "0 10px 40px rgba(0,0,0,.35)",
+      }}
+    >
+      {/* Navigation Links */}
+
+      <div
+        className="nav-desktop"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "2.5rem",
+          margin: "0 auto",
+        }}
+      >
+        {NAV.map((item) => (
+          <button
+            key={item.href}
+            onClick={() => go(item.href)}
             style={{
-              background: "none", border: "none", cursor: "pointer",
-              fontFamily: "'Instrument Sans',sans-serif",
-              fontSize: ".85rem", fontWeight: 500,
-              color: "var(--text-2)", transition: "color .2s",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+
+              fontFamily:
+                "'Instrument Sans',sans-serif",
+
+              fontSize: ".95rem",
+              fontWeight: 500,
+
+              color: "var(--text-2)",
+
+              transition: "all .25s ease",
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
-            onMouseLeave={e => (e.currentTarget.style.color = "var(--text-2)")}>
-            {n.label}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color =
+                "var(--text)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color =
+                "var(--text-2)";
+            }}
+          >
+            {item.label}
           </button>
         ))}
-        <button onClick={onCmd}
+
+        <button
+          onClick={onContact}
           style={{
-            background: "rgba(255,255,255,0.04)", border: "1px solid var(--border)",
-            borderRadius: "7px", padding: ".3rem .65rem",
-            color: "var(--text-3)", fontSize: ".72rem",
-            fontFamily: "'JetBrains Mono',monospace", cursor: "pointer", transition: "all .2s",
+            background: "var(--blue)",
+            color: "#fff",
+
+            border: "none",
+
+            padding: ".75rem 1.35rem",
+
+            borderRadius: "999px",
+
+            fontWeight: 600,
+            fontSize: ".9rem",
+
+            cursor: "pointer",
+
+            transition: "all .25s ease",
           }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--border-accent)"; e.currentTarget.style.color = "var(--blue)"; }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.color = "var(--text-3)"; }}>
-          ⌘K
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform =
+              "translateY(-2px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform =
+              "translateY(0)";
+          }}
+        >
+          Contact
         </button>
       </div>
 
-      {/* Mobile hamburger — right-aligned on mobile */}
-      <button onClick={() => setOpen(!open)}
-        style={{
-          display: "none", position: "absolute", right: "1.5rem",
-          background: "none", border: "1px solid var(--border)",
-          borderRadius: "7px", padding: ".4rem .6rem",
-          color: "var(--text)", cursor: "pointer",
-        }}
-        className="nav-mobile-btn">
-        {open ? "✕" : "≡"}
-      </button>
-
-      {open && (
-        <div style={{
-          position: "absolute", top: "100%", left: 0, right: 0,
-          background: "rgba(4,5,13,0.97)", backdropFilter: "blur(20px)",
-          borderBottom: "1px solid var(--border)",
-          padding: "1.5rem 2.5rem",
-          display: "flex", flexDirection: "column", gap: "1.25rem",
-        }}>
-          {NAV.map(n => (
-            <button key={n.href} onClick={() => go(n.href)}
-              style={{
-                background: "none", border: "none", cursor: "pointer",
-                fontFamily: "'Instrument Sans',sans-serif",
-                fontSize: "1rem", fontWeight: 500,
-                color: "var(--text-2)", textAlign: "left",
-              }}>
-              {n.label}
-            </button>
-          ))}
-        </div>
-      )}
-
       <style>{`
-        @media(max-width:768px){
-          .nav-desktop{display:none!important}
-          .nav-mobile-btn{display:block!important}
+        @media (max-width: 768px) {
+          .nav-desktop{
+            gap:1rem !important;
+            flex-wrap:wrap;
+            justify-content:center;
+          }
+        }
+
+        @media (max-width: 640px) {
+          nav{
+            width:95% !important;
+          }
+
+          .nav-desktop button{
+            font-size:.85rem !important;
+          }
         }
       `}</style>
     </nav>

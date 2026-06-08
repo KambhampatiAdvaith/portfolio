@@ -1,20 +1,71 @@
 "use client";
+
+import {
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
+} from "react-icons/fa";
+
 export default function Footer() {
   return (
-    <footer style={{ borderTop:"1px solid var(--border)", padding:"2rem 2.5rem", display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:"1rem" }}>
-      <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:".85rem", color:"var(--text-3)" }}>
-        Kambhampati Advaith<span style={{ color:"var(--blue)" }}>.</span>
-      </div>
-      <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:".68rem", color:"var(--text-3)", letterSpacing:".04em" }}>
-        Hyderabad · {new Date().getFullYear()}
-      </div>
-      <div style={{ display:"flex", gap:"1.5rem" }}>
-        {[["GitHub","https://github.com/kadvaith234"],["LinkedIn","https://linkedin.com"],["Email","mailto:kadvaith234@gmail.com"]].map(([l,h]) => (
-          <a key={l} href={h} target="_blank" rel="noreferrer" style={{ color:"var(--text-3)", fontSize:".8rem", textDecoration:"none", fontFamily:"'Instrument Sans',sans-serif", transition:"color .2s" }}
-            onMouseEnter={e => (e.currentTarget.style.color="var(--text)")}
-            onMouseLeave={e => (e.currentTarget.style.color="var(--text-3)")}
-          >{l}</a>
-        ))}
+    <footer
+      id="footer"
+      style={{
+        borderTop: "1px solid var(--border)",
+        padding: "3rem 2rem",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1080px",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "1.5rem",
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: "'Syne',sans-serif",
+            fontSize: "1.8rem",
+            fontWeight: 700,
+          }}
+        >
+          Contact Me
+        </h3>
+
+        <div
+          style={{
+            display: "flex",
+            gap: "1.5rem",
+          }}
+        >
+          <a
+            href="mailto:kadvaith234@gmail.com"
+            style={{ color: "var(--text)" }}
+          >
+            <FaEnvelope size={28} />
+          </a>
+
+          <a
+            href="https://github.com/KambhampatiAdvaith"
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: "var(--text)" }}
+          >
+            <FaGithub size={28} />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/kambhampati-advaith-2300592b0"
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: "var(--text)" }}
+          >
+            <FaLinkedin size={28} />
+          </a>
+        </div>
       </div>
     </footer>
   );
